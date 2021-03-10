@@ -5,3 +5,5 @@ Light-weight plex like application. This is meant to quickly visualize and organ
 - Save suggestions for later 
 - Keep tabs on upcoming, trending, top rated movies and TV shows
 - Organize and visualize large local torrent libraries with full details given: plot, dates, reviews/imdb score, posters, trailers
+
+Using clean architecture style. 
