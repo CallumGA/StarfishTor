@@ -1,0 +1,367 @@
+﻿@model Web.Models.SuggestionViewModel
+
+
+@{
+    ViewData["Title"] = "Home";
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>iPortfolio Bootstrap Template - Index</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <link href="~/assets/img/favicon.png" rel="icon">
+    <link href="~/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/venobox/venobox.css" rel="stylesheet">
+    <link href="~/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/aos/aos.css" rel="stylesheet">
+
+    <link href="~/css/site.css" rel="stylesheet">
+
+    <link href="~/assets/css/style.css" rel="stylesheet">
+    <style>
+        .hovereffect {
+            width: 100%;
+            height: 100%;
+            float: left;
+            overflow: hidden;
+            position: relative;
+            text-align: center;
+            cursor: default;
+        }
+
+            .hovereffect .overlay {
+                position: absolute;
+                overflow: hidden;
+                width: 80%;
+                height: 80%;
+                left: 10%;
+                top: 10%;
+                border-bottom: 1px solid #FFF;
+                border-top: 1px solid #FFF;
+                -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+                transition: opacity 0.35s, transform 0.35s;
+                -webkit-transform: scale(0,1);
+                -ms-transform: scale(0,1);
+                transform: scale(0,1);
+            }
+
+            .hovereffect:hover .overlay {
+                opacity: 1;
+                filter: alpha(opacity=100);
+                -webkit-transform: scale(1);
+                -ms-transform: scale(1);
+                transform: scale(1);
+            }
+
+            .hovereffect img {
+                display: block;
+                position: relative;
+                -webkit-transition: all 0.35s;
+                transition: all 0.35s;
+            }
+
+            .hovereffect:hover img {
+                filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="0.6" /><feFuncG type="linear" slope="0.6" /><feFuncB type="linear" slope="0.6" /></feComponentTransfer></filter></svg>#filter');
+                filter: brightness(0.6);
+                -webkit-filter: brightness(0.6);
+            }
+
+            .hovereffect h2 {
+                text-transform: uppercase;
+                text-align: center;
+                position: relative;
+                font-size: 17px;
+                background-color: transparent;
+                color: #FFF;
+                padding: 1em 0;
+                opacity: 0;
+                filter: alpha(opacity=0);
+                -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+                transition: opacity 0.35s, transform 0.35s;
+                -webkit-transform: translate3d(0,-100%,0);
+                transform: translate3d(0,-100%,0);
+            }
+    </style>
+</head>
+<body>
+
+
+
+    <!-- ======= Mobile nav toggle button ======= -->
+    <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+
+    <!-- ======= Header ======= -->
+    <header id="header">
+        <div class="d-flex flex-column">
+
+            <nav class="nav-menu">
+                <ul>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index"><i class="bx bx-film"></i> <span>Movies</span></a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="TV"><i class="bx bx-tv"></i> <span>TV</span></a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="All"><i class="bx bx-collection"></i> All</a></li>
+                    <li class="active"><a asp-area="" asp-controller="Home" asp-action="Suggestion"><i class="bx bx-globe"></i> Suggestions</a></li>
+                    <li><a href="#contact"><i class="bx bx-save"></i>Saved suggestions</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Suggestion"><i class="bx bx-search"></i> Search</a></li>
+                </ul>
+            </nav>
+            <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+
+        </div>
+    </header><!-- End Header -->
+
+
+    <main id="main">
+
+
+        <!-- ======= Movie Section ======= -->
+        <section id="about" class="about">
+            <div class="container">
+
+                <div class="section-title">
+                    <h3>What's popular</h3>
+                </div>
+
+                <div class="owl-carousel testimonials-carousel">
+
+                    @foreach (var torrent in Model.SuggestionTorrents)
+                    {
+                        @if (torrent.Poster_path != "")
+                        {
+                            <div class="testimonial-item" data-aos="fade-right">
+
+                                <a href="#editStudentModal" class="edit hovereffect">
+                                    <input type="hidden" class="id" value="@torrent.Id" />
+                                    <input type="hidden" class="title" value="@torrent.Title" />
+                                    <input type="hidden" class="media" value="@torrent.Media_type" />
+
+                                    <img class="img-fluid img-responsive" src=@torrent.Poster_path>
+                                    <div class="overlay">
+                                        <p>@torrent.Title</p>
+                                    </div>
+                                    <div class="portfolio-links">
+                                        <a href="@torrent.Poster_path" data-gall="portfolioGallery" class="venobox"><i class="bx bx-plus"></i></a>
+                                    </div>
+                                </a>
+                            </div>
+
+                        }
+                    }
+                </div>
+
+
+                <div class="section-title">
+                    <h3>Top rated</h3>
+                </div>
+                <div class="owl-carousel testimonials-carousel">
+
+                    @foreach (var torrent in Model.SuggestionTopRated)
+                    {
+                        @if (torrent.Poster_path != "")
+                        {
+                            <div class="testimonial-item" data-aos="fade-right">
+
+                                <a href="#editStudentModal" class="edit hovereffect">
+                                    <input type="hidden" class="id" value="@torrent.Id" />
+                                    <input type="hidden" class="title" value="@torrent.Title" />
+                                    <input type="hidden" class="media" value="@torrent.Media_type" />
+
+                                    <img class="img-fluid img-responsive" src=@torrent.Poster_path>
+                                    <div class="overlay">
+                                        <p>@torrent.Title</p>
+                                    </div>
+                                    <div class="portfolio-links">
+                                        <a href="@torrent.Poster_path" data-gall="portfolioGallery" class="venobox"><i class="bx bx-plus"></i></a>
+                                    </div>
+                                </a>
+                            </div>
+
+                        }
+                    }
+
+                </div>
+
+                <div class="section-title">
+                    <h3>Trending</h3>
+                </div>
+                <div class="owl-carousel testimonials-carousel">
+
+                    @foreach (var torrent in Model.SuggestionTrending)
+                    {
+                        @if (torrent.Poster_path != "")
+                        {
+                            <div class="testimonial-item" data-aos="fade-right">
+
+                                <a href="#editStudentModal" class="edit hovereffect">
+                                    <input type="hidden" class="id" value="@torrent.Id" />
+                                    <input type="hidden" class="title" value="@torrent.Title" />
+                                    <input type="hidden" class="media" value="@torrent.Media_type" />
+
+                                    <img class="img-fluid img-responsive" src=@torrent.Poster_path>
+                                    <div class="overlay">
+                                        <p>@torrent.Title</p>
+                                    </div>
+                                    <div class="portfolio-links">
+                                        <a href="@torrent.Poster_path" data-gall="portfolioGallery" class="venobox"><i class="bx bx-plus"></i></a>
+                                    </div>
+                                </a>
+                            </div>
+
+                        }
+                    }
+                </div>
+
+                <div class="section-title">
+                    <h3>Upcoming</h3>
+                </div>
+                <div class="owl-carousel testimonials-carousel">
+
+                    @foreach (var torrent in Model.SuggestionUpcoming)
+                    {
+                        @if (torrent.Poster_path != "")
+                        {
+                            <div class="testimonial-item" data-aos="fade-right">
+
+                                <a href="#editStudentModal" class="edit hovereffect">
+                                    <input type="hidden" class="id" value="@torrent.Id" />
+                                    <input type="hidden" class="title" value="@torrent.Title" />
+                                    <input type="hidden" class="media" value="@torrent.Media_type" />
+
+                                    <img class="img-fluid img-responsive" src=@torrent.Poster_path>
+                                    <div class="overlay">
+                                        <p>@torrent.Title</p>
+                                    </div>
+                                    <div class="portfolio-links">
+                                        <a href="@torrent.Poster_path" data-gall="portfolioGallery" class="venobox"><i class="bx bx-plus"></i></a>
+                                    </div>
+                                </a>
+                            </div>
+
+                        }
+                    }
+                </div>
+            </div>
+        </section><!-- End Movie Section -->
+
+
+
+    </main><!-- End #main -->
+    <!-- Selected movie modal -->
+    <div id="editStudentModal" class="modal fade torrentModal">
+        <div class="modal-dialog modal-tall modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <a asp-area="" asp-controller="" asp-action="">
+                        <i class="bx bx-star"></i>
+                        <span class="reviews"></span>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <img class="poster img-fluid">
+                    <p class="overview" style="margin-top:20px"></p>
+                    <div class="d-flex flex-wrap">
+
+
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6"><i class="media"></i> </div>
+                            <div class="col-6" style="margin-bottom:20px"><i class="language"></i></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6"><i class="release-date"></i></div>
+                            <div class="col-6"><i class="popularity"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel" />
+                    <input type="hidden" id="id" name="id" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+    <script src="~/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="~/assets/vendor/php-email-form/validate.js"></script>
+    <script src="~/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+    <script src="~/assets/vendor/counterup/counterup.min.js"></script>
+    <script src="~/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/assets/vendor/venobox/venobox.min.js"></script>
+    <script src="~/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="~/assets/vendor/typed.js/typed.min.js"></script>
+    <script src="~/assets/vendor/aos/aos.js"></script>
+
+    <script src="~/assets/js/main.js"></script>
+
+
+
+
+</body>
+</html>
+
+@section Scripts
+{
+
+    <script type="text/javascript">
+
+        AOS.init();
+
+        $(document).ready(function () {
+
+            $('.edit').on('click', function () {
+                var id = $(this).find('.id').val();
+                var title = $(this).find('.title').val();
+                var media = $(this).find('.media').val();
+
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'JSON',
+                    url: '/Home/Selected',
+                    data: { title: title, media: media, id: id },
+                    success: function (response) {
+
+                        var obj = JSON.parse(response);
+
+                        @* alert(obj);*@
+
+                        $('.modal-header .modal-title').text(obj.Title);
+                        $(".modal-header .reviews").text(obj.Vote_average);
+
+                        $(".modal-body .poster").attr("src", obj.Backdrop_path);
+                        $(".modal-body .overview").text(obj.Overview);
+
+                        $(".modal-body .media").text("Type: " + obj.Media_type);
+                        $(".modal-body .language").text("Language: " + obj.Original_language);
+                        $(".modal-body .release-date").text("Release date: " + obj.Release_date);
+                        $(".modal-body .popularity").text("Popularity: " + obj.popularity);
+
+
+                        $('.torrentModal').modal('show');
+                    },
+                    error:
+                        function (response) {
+                            alert("TMDB request failed, make sure you have an internet connection.");
+                        }
+                })
+            });
+        });
+    </script>
+}
+
+
