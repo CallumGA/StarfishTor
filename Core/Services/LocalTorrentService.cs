@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Core.CustomAttributes;
 using Core.DTO;
 using Core.Interfaces;
 using TMDbLib.Objects.Search;
 
 namespace Core.Services
 {
+    [Service]
     public class LocalTorrentService : ILocalTorrentService
     {
         private readonly ILocalTorrentRepository _localTorrentRepository;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.CustomAttributes;
 using Core.DTO;
 using Core.Entities;
 using Core.Interfaces;
@@ -12,6 +13,7 @@ using Wangkanai.Detection.Services;
 
 namespace Core.Services
 {
+    [Service]
     public class MapperService : IMapperService
     {
 
