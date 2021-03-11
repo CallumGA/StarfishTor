@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.CustomAttributes;
 using Core.DTO;
 using Core.Interfaces;
 using TMDbLib.Objects.Search;
 
 namespace Core.Services
 {
+    [Service]
     public class OmdbApiService : IOmdbApiService
     {
         private readonly IOmdbApiRepository _omdbApiRepository;

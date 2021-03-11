@@ -19,28 +19,15 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
     <link href="~/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="~/assets/vendor/venobox/venobox.css" rel="stylesheet">
     <link href="~/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="~/assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="~/css/site.css" rel="stylesheet">
 
-    <link href="~/assets/css/style.css" rel="stylesheet">
+
+
     <style>
-        .d-flex .flex-column {
-            background: #2a3840;
-        }
 
-
-        i {
-            color: #70c989;
-        }
-
-        a {
-            color: #70c989;
-        }
 
         .hovereffect {
             width: 100%;
@@ -110,29 +97,6 @@
 
 
 
-    <!-- ======= Mobile nav toggle button ======= -->
-    <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
-
-    <!-- ======= Header ======= -->
-    <header id="header" class="nav">
-        <div class="d-flex flex-column">
-
-            <nav class="nav-menu">
-                <ul>
-                    <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index"><i class="bx bx-film"></i> <span>Movies</span></a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="TV"><i class="bx bx-tv"></i> <span>TV</span></a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="All"><i class="bx bx-collection"></i> All</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Suggestion"><i class="bx bx-globe"></i> Suggestions</a></li>
-                    <li><a href="#contact"><i class="bx bx-save"></i>Saved suggestions</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Suggestion"><i class="bx bx-search"></i> Search</a></li>
-                </ul>
-            </nav>
-            <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
-
-        </div>
-    </header><!-- End Header -->
-
-
     <main id="main">
 
         <!-- ======= Movie Section ======= -->
@@ -142,8 +106,6 @@
                 <div class="section-title">
                     <h2>Local movie folders</h2>
                     <input text="Movies" type="file" id="ctrl" class="filestyle" name="image_src" data-input="false" data-iconName="fa fa-plus-square fa-5x" data-buttonText="" onchange="selectFolder(event)" webkitdirectory mozdirectory msdirectory odirectory directory multiple />
-                    @*<a onclick="newFolder(event)"><i class="fa fa-folder fa-5x"></i></a>*@
-
                 </div>
 
 
@@ -182,7 +144,7 @@
                         }
                     </div>
                     <div class="btn-group" role="group" aria-label="control-bar">
-                        <a class="btn btn-secondary" id="@folder.Folder_name" onClick="deleteFolder(this.id)">
+                        <a class="btn btn-primary" id="@folder.Folder_name" onClick="deleteFolder(this.id)">
                             <i class="bx bx-trash"></i>
                         </a>
                     </div>
