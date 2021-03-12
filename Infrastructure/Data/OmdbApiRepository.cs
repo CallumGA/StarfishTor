@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
 using Core;
+using Core.Entities.Aggregates;
 using Core.Interfaces;
 using TMDbLib.Client;
 using TMDbLib.Objects.General;
+using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Reviews;
 using TMDbLib.Objects.Search;
 
@@ -10,10 +15,11 @@ namespace Infrastructure.Data
 {
     public class OmdbApiRepository : IOmdbApiRepository
     {
+        private static readonly HttpClient httpClient = new HttpClient();
+        private static readonly TMDbClient client = new TMDbClient(Constants.OmdbKey);
 
         public SearchMovie RequestOmdb(string torrentName)
         {
-            TMDbClient client = new TMDbClient(Constants.OmdbKey);
             SearchContainer<SearchMovie> movies = client.SearchMovieAsync(torrentName).Result;
 
             if (movies.Results.Count <= 0) return null;
@@ -25,7 +31,6 @@ namespace Infrastructure.Data
 
         public SearchTv RequestTv(string torrentName)
         {
-            TMDbClient client = new TMDbClient(Constants.OmdbKey);
             SearchContainer<SearchTv> tvShows = client.SearchTvShowAsync(torrentName).Result;
 
             if (tvShows.Results.Count <= 0) return null;
@@ -37,8 +42,6 @@ namespace Infrastructure.Data
 
         public SearchContainerWithId<ReviewBase> RequestMovieReviews(int id)
         {
-            TMDbClient client = new TMDbClient(Constants.OmdbKey);
-
             return client.GetMovieReviewsAsync(id).Result;
         }
 
@@ -46,8 +49,6 @@ namespace Infrastructure.Data
 
         public SearchContainerWithId<ReviewBase> RequestTvReviews(int id)
         {
-            TMDbClient client = new TMDbClient(Constants.OmdbKey);
-
             return client.GetTvShowReviewsAsync(id).Result;
         }
 
@@ -55,8 +56,6 @@ namespace Infrastructure.Data
 
         public SearchContainer<SearchMovie> RequestMovieSuggestions()
         {
-            TMDbClient client = new TMDbClient(Constants.OmdbKey);
-
             return client.DiscoverMoviesAsync()
                 .WhereVoteAverageIsAtLeast(7)
                 .WherePrimaryReleaseDateIsBefore(DateTime.Today.AddMonths(1))
@@ -67,8 +66,6 @@ namespace Infrastructure.Data
 
         public SearchContainer<SearchTv> RequestTvSuggestions()
         {
-            TMDbClient client = new TMDbClient(Constants.OmdbKey);
-
             return client.DiscoverTvShowsAsync()
                 .WhereVoteAverageIsAtLeast(7)
                 .WhereAirDateIsBefore(DateTime.Today.AddMonths(1))
@@ -79,8 +76,6 @@ namespace Infrastructure.Data
 
         public SearchContainer<SearchMovie> RequestMovieSuggestionsTopRated()
         {
-            TMDbClient client = new TMDbClient(Constants.OmdbKey);
-
             return client.GetMovieTopRatedListAsync().Result;
         }
 
@@ -88,8 +83,6 @@ namespace Infrastructure.Data
 
         public SearchContainer<SearchTv> RequestTvSuggestionsTopRated()
         {
-            TMDbClient client = new TMDbClient(Constants.OmdbKey);
-
             return client.GetTvShowTopRatedAsync().Result;
         }
 
@@ -97,8 +90,6 @@ namespace Infrastructure.Data
 
         public SearchContainer<SearchMovie> RequestMovieSuggestionsTrending()
         {
-            TMDbClient client = new TMDbClient(Constants.OmdbKey);
-
             return client.GetTrendingMoviesAsync(TMDbLib.Objects.Trending.TimeWindow.Day).Result;
         }
 
@@ -106,8 +97,6 @@ namespace Infrastructure.Data
 
         public SearchContainer<SearchTv> RequestTvSuggestionsTrending()
         {
-            TMDbClient client = new TMDbClient(Constants.OmdbKey);
-
             return client.GetTrendingTvAsync(TMDbLib.Objects.Trending.TimeWindow.Day).Result;
         }
 
@@ -115,8 +104,6 @@ namespace Infrastructure.Data
 
         public SearchContainer<SearchMovie> RequestMovieSuggestionsUpcoming()
         {
-            TMDbClient client = new TMDbClient(Constants.OmdbKey);
-
             return client.DiscoverMoviesAsync()
                 .WherePrimaryReleaseDateIsAfter(DateTime.Today).Query().Result;
         }
@@ -125,11 +112,19 @@ namespace Infrastructure.Data
 
         public SearchContainer<SearchTv> RequestTvSuggestionsUpcoming()
         {
-            TMDbClient client = new TMDbClient(Constants.OmdbKey);
-
             return client.DiscoverTvShowsAsync()
                 .WhereFirstAirDateIsAfter(DateTime.Today).Query().Result;
         }
+
+
+        //TMDBLib does not currently have an async method for requesting watch providers. Use http client instead
+        public async Task RequestWatchProvidersAsync()
+        {
+            var streamTask = httpClient.GetStreamAsync("https://api.themoviedb.org/3/movie/" + 238 + "/watch/providers?api_key=" + Constants.OmdbKey);
+
+            var watchProviders = await JsonSerializer.DeserializeAsync<WatchProviderRoot>(await streamTask);
+        }
+
 
     }
 }
