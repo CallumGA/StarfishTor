@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Reviews;
 using TMDbLib.Objects.Search;
@@ -30,6 +31,8 @@ namespace Core.Interfaces
         SearchContainer<SearchMovie> RequestMovieSuggestionsUpcoming();
 
         SearchContainer<SearchTv> RequestTvSuggestionsUpcoming();
+
+        Task RequestWatchProvidersAsync();
 
     }
 }

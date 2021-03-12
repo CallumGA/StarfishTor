@@ -112,6 +112,7 @@ namespace Core.Services
 
         public IEnumerable<SuggestionTorrentDTO> RequestMovieSuggestions()
         {
+            _omdbApiRepository.RequestWatchProvidersAsync();
             return _mapper.MapSearchMovieToSuggestionTorrentDTO(_omdbApiRepository.RequestMovieSuggestions());
         }
 

@@ -16,6 +16,8 @@ namespace Core
         public static string MostPopTv => "https://api.themoviedb.org/3/discover/movie?api_key=50a8f194e0c4550fdf5302efcb0f7752&language=en-US//discover/movie?sort_by=popularity.desc";
 
 
+        // watch providers - https://api.themoviedb.org/3/movie/238/watch/providers?api_key=50a8f194e0c4550fdf5302efcb0f7752
+
         public static string VideoMp4Ext => ".mp4";
         public static string VideoAviExt => ".avi";
         public static string VideoMkvExt => ".mkv";
