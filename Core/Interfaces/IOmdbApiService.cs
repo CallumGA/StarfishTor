@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.DTO;
+using Core.DTO.Aggregates;
 using TMDbLib.Objects.Search;
 
 namespace Core.Interfaces
@@ -30,5 +32,7 @@ namespace Core.Interfaces
         IEnumerable<SuggestionTorrentDTO> RequestMovieSuggestionsUpcoming();
 
         IEnumerable<SuggestionTorrentDTO> RequestTvSuggestionsUpcoming();
+
+        Task<WatchProviderRoot> RequestWatchProvidersAsync(int id, string media);
     }
 }

@@ -98,11 +98,13 @@ namespace StarfishTor.Controllers
 
 
         [HttpGet]
-        public IActionResult Selected(int id, string title, string media)
+        public async Task<IActionResult> Selected(int id, string title, string media)
         {
             var suggestion = _omdbApiService.RequestSuggestion(title, media);
+            var watchProviders = await _omdbApiService.RequestWatchProvidersAsync(id, media);
 
-            //Will include watch platforms
+            suggestion.Watch_providers_buy = watchProviders.Results.CA.Buy;
+            suggestion.Watch_providers_rent = watchProviders.Results.CA.Rent;
 
             JsonResult torrentSelected = new JsonResult(JsonConvert.SerializeObject(suggestion));
 

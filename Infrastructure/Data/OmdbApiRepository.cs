@@ -3,11 +3,10 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Core;
-using Core.Entities.Aggregates;
+using Core.DTO.Aggregates;
 using Core.Interfaces;
 using TMDbLib.Client;
 using TMDbLib.Objects.General;
-using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Reviews;
 using TMDbLib.Objects.Search;
 
@@ -117,12 +116,14 @@ namespace Infrastructure.Data
         }
 
 
-        //TMDBLib does not currently have an async method for requesting watch providers. Use http client instead
-        public async Task RequestWatchProvidersAsync()
-        {
-            var streamTask = httpClient.GetStreamAsync("https://api.themoviedb.org/3/movie/" + 238 + "/watch/providers?api_key=" + Constants.OmdbKey);
 
+        //TMDBLib does not currently have an async method for requesting watch providers. Use http client instead
+        public async Task<WatchProviderRoot> RequestWatchProvidersAsync(int id, string media)
+        {
+            var streamTask = httpClient.GetStreamAsync("https://api.themoviedb.org/3/" + media.ToLower() + "/" + id + "/watch/providers?api_key=" + Constants.OmdbKey);
             var watchProviders = await JsonSerializer.DeserializeAsync<WatchProviderRoot>(await streamTask);
+
+            return watchProviders;
         }
 
 

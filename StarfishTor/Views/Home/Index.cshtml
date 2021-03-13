@@ -163,6 +163,9 @@
                 </div>
                 <div class="modal-body">
                     <img class="poster img-fluid">
+                    <ul class="watchProvider">
+
+                    </ul>
                     <p class="overview" style="margin-top:20px"></p>
                     <div class="d-flex flex-wrap">
 
@@ -245,7 +248,9 @@
 @section Scripts
 {
 
-    <script type="text/javascript">function deleteFolder(clicked) {
+    <script type="text/javascript">
+
+        function deleteFolder(clicked) {
 
             $.ajax(
                 {
@@ -344,8 +349,28 @@
 
                     $('.modal-header .modal-title').text(obj.Title);
                     $(".modal-header .reviews").text(obj.Vote_average);
-
                     $(".modal-body .poster").attr("src", obj.Backdrop_path);
+
+                    //Watch provider parsing
+
+                    $(".modal-body .watchProvider").empty();
+                    for (var item in obj.Watch_providers_rent) {
+
+                        var watchProv = obj.Watch_providers_rent[item];
+                        var fullPath = "https://image.tmdb.org/t/p/original" + watchProv.LogoPath;
+
+                        var node = document.createElement("li");
+                        var image = document.createElement("img");
+
+                        image.setAttribute("src", fullPath);
+                        image.setAttribute("style", "width: 25px");
+                        node.appendChild(image);
+
+                        $(".modal-body .watchProvider").append(node);
+
+                    }
+
+
                     $(".modal-body .overview").text(obj.Overview);
 
                     $(".modal-body .media").text("Type: " + obj.Media_type);

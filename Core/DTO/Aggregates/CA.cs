@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Core.Entities.Aggregates
+namespace Core.DTO.Aggregates
 {
     public class CA
     {

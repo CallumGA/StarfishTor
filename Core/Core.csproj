@@ -14,6 +14,6 @@
     <Folder Include="DTO\" />
     <Folder Include="Services\" />
     <Folder Include="CustomAttributes\" />
-    <Folder Include="Entities\Aggregates\" />
+    <Folder Include="DTO\Aggregates\" />
   </ItemGroup>
 </Project>
