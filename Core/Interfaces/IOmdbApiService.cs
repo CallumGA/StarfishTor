@@ -13,9 +13,9 @@ namespace Core.Interfaces
 
         List<SearchTv> RequestTv(string torrentNames);
 
-        SuggestionTorrentDTO RequestSuggestion(string mediaType, string title);
-
         ReviewTorrentDTO RequestReviews(int id, string mediaType);
+
+        SelectedTorrentDTO RequestSelected(string title, string mediaType);
 
         IEnumerable<SuggestionTorrentDTO> RequestMovieSuggestions();
 

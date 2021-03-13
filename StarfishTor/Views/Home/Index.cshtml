@@ -163,7 +163,7 @@
                 </div>
                 <div class="modal-body">
                     <img class="poster img-fluid">
-                    <ul class="watchProvider">
+                    <ul class="watchProvider list-group list-group-horizontal">
 
                     </ul>
                     <p class="overview" style="margin-top:20px"></p>
@@ -351,8 +351,7 @@
                     $(".modal-header .reviews").text(obj.Vote_average);
                     $(".modal-body .poster").attr("src", obj.Backdrop_path);
 
-                    //Watch provider parsing
-
+                    //Watch provider rent parsing
                     $(".modal-body .watchProvider").empty();
                     for (var item in obj.Watch_providers_rent) {
 
@@ -367,6 +366,25 @@
                         node.appendChild(image);
 
                         $(".modal-body .watchProvider").append(node);
+                        $(".modal-body .watchProvider li").addClass("list-group-item");
+
+                    }
+
+                    //Watch provider flatrate
+                    for (var item in obj.Watch_providers_flatrate) {
+
+                        var watchProv = obj.Watch_providers_flatrate[item];
+                        var fullPath = "https://image.tmdb.org/t/p/original" + watchProv.LogoPath;
+
+                        var node = document.createElement("li");
+                        var image = document.createElement("img");
+
+                        image.setAttribute("src", fullPath);
+                        image.setAttribute("style", "width: 25px");
+                        node.appendChild(image);
+
+                        $(".modal-body .watchProvider").append(node);
+                        $(".modal-body .watchProvider li").addClass("list-group-item");
 
                     }
 

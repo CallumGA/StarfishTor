@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Core.DTO.Aggregates;
 
 namespace Core.DTO
 {
-    public class SuggestionTorrentDTO
+    public class SelectedTorrentDTO
     {
         public int Id { get; set; }
 
@@ -32,6 +31,12 @@ namespace Core.DTO
         public int Vote_count { get; set; }
 
         public double Popularity { get; set; }
+
+        public IEnumerable<Rent> Watch_providers_rent { get; set; }
+
+        public IEnumerable<Buy> Watch_providers_buy { get; set; }
+
+        public IEnumerable<Flatrate> Watch_providers_flatrate { get; set; }
 
     }
 }

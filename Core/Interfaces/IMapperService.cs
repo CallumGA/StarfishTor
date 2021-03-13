@@ -22,9 +22,9 @@ namespace Core.Interfaces
 
         IEnumerable<SuggestionTorrentDTO> MapSearchTvToSuggestionTorrentDTO(SearchContainer<SearchTv> suggestionTorrentList);
 
-        SuggestionTorrentDTO MapSingleSearchMovieToSuggestionTorrentDTO(SearchMovie suggestionTorrent);
+        SelectedTorrentDTO MapSingleSearchMovieToSelectedTorrentDTO(SearchMovie suggestionTorrent);
 
-        SuggestionTorrentDTO MapSingleSearchTvToSuggestionTorrentDTO(SearchTv suggestionTorrent);
+        SelectedTorrentDTO MapSingleSearchTvToSelectedTorrentDTO(SearchTv suggestionTorrent);
 
         ReviewTorrentDTO MapReviewToSuggestionTorrentDTO(SearchContainerWithId<ReviewBase> reviewList);
     }
