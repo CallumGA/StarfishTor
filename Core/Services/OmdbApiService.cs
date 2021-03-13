@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Core.CustomAttributes;
 using Core.DTO;
+using Core.DTO.Aggregates;
 using Core.Interfaces;
 using TMDbLib.Objects.Search;
 
@@ -110,9 +112,15 @@ namespace Core.Services
 
 
 
+        public async Task<WatchProviderRoot> RequestWatchProvidersAsync(int id, string media)
+        {
+           return await _omdbApiRepository.RequestWatchProvidersAsync(id, media);
+        }
+
+
+
         public IEnumerable<SuggestionTorrentDTO> RequestMovieSuggestions()
         {
-            _omdbApiRepository.RequestWatchProvidersAsync();
             return _mapper.MapSearchMovieToSuggestionTorrentDTO(_omdbApiRepository.RequestMovieSuggestions());
         }
 

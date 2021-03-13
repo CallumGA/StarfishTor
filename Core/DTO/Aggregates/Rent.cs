@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace Core.Entities.Aggregates
+namespace Core.DTO.Aggregates
 {
-    public class Buy
+    public class Rent
     {
         [JsonPropertyName("display_priority")]
         public int DisplayPriority { get; set; }

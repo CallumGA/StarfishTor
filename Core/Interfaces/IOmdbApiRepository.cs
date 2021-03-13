@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Core.DTO.Aggregates;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Reviews;
 using TMDbLib.Objects.Search;
@@ -32,7 +33,7 @@ namespace Core.Interfaces
 
         SearchContainer<SearchTv> RequestTvSuggestionsUpcoming();
 
-        Task RequestWatchProvidersAsync();
+        Task<WatchProviderRoot> RequestWatchProvidersAsync(int id, string media);
 
     }
 }
