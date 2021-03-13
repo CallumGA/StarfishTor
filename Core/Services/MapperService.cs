@@ -97,6 +97,7 @@ namespace Core.Services
         }
 
 
+
         //List of suggestion movies
         public IEnumerable<SuggestionTorrentDTO> MapSearchMovieToSuggestionTorrentDTO(SearchContainer<SearchMovie> suggestionTorrentList)
         {
@@ -121,6 +122,7 @@ namespace Core.Services
 
             return torrentList;
         }
+
 
 
         //List of suggestion TV
@@ -148,11 +150,11 @@ namespace Core.Services
 
 
 
-        public SuggestionTorrentDTO MapSingleSearchMovieToSuggestionTorrentDTO(SearchMovie suggestionTorrent)
+        public SelectedTorrentDTO MapSingleSearchMovieToSelectedTorrentDTO(SearchMovie suggestionTorrent)
         {
 
             var torrentList =
-                  new SuggestionTorrentDTO
+                  new SelectedTorrentDTO
                   {
                       Id = suggestionTorrent.Id,
                       Media_type = suggestionTorrent.MediaType.ToString(),
@@ -173,11 +175,12 @@ namespace Core.Services
         }
 
 
-        public SuggestionTorrentDTO MapSingleSearchTvToSuggestionTorrentDTO(SearchTv suggestionTorrent)
+
+        public SelectedTorrentDTO MapSingleSearchTvToSelectedTorrentDTO(SearchTv suggestionTorrent)
         {
 
             var torrentList =
-                  new SuggestionTorrentDTO
+                  new SelectedTorrentDTO
                   {
                       Id = suggestionTorrent.Id,
                       Media_type = suggestionTorrent.MediaType.ToString(),
@@ -195,6 +198,8 @@ namespace Core.Services
 
             return torrentList;
         }
+
+
 
         //Map reviews to ReviewTorrentDTO()
         public ReviewTorrentDTO MapReviewToSuggestionTorrentDTO(SearchContainerWithId<ReviewBase> reviewList)

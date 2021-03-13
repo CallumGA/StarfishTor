@@ -84,15 +84,15 @@ namespace Core.Services
 
 
 
-        public SuggestionTorrentDTO RequestSuggestion(string title, string mediaType)
+        public SelectedTorrentDTO RequestSelected(string title, string mediaType)
         {
             if (mediaType == "Movie")
             {
-                return _mapper.MapSingleSearchMovieToSuggestionTorrentDTO(_omdbApiRepository.RequestOmdb(title));
+                return _mapper.MapSingleSearchMovieToSelectedTorrentDTO(_omdbApiRepository.RequestOmdb(title));
             }
             else
             {
-                return _mapper.MapSingleSearchTvToSuggestionTorrentDTO(_omdbApiRepository.RequestTv(title));
+                return _mapper.MapSingleSearchTvToSelectedTorrentDTO(_omdbApiRepository.RequestTv(title));
             }
         }
 
@@ -116,6 +116,7 @@ namespace Core.Services
         {
            return await _omdbApiRepository.RequestWatchProvidersAsync(id, media);
         }
+
 
 
 
