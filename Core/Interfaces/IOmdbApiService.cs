@@ -15,6 +15,8 @@ namespace Core.Interfaces
 
         ReviewTorrentDTO RequestReviews(int id, string mediaType);
 
+        Task<TrailerTorrent> RequestTrailerAsync(int id, string mediaType);
+
         SelectedTorrentDTO RequestSelected(string title, string mediaType);
 
         IEnumerable<SuggestionTorrentDTO> RequestMovieSuggestions();

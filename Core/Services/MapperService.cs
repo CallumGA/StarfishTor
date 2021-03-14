@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.CustomAttributes;
 using Core.DTO;
+using Core.DTO.Aggregates;
 using Core.Entities;
 using Core.Interfaces;
 using TMDbLib.Objects.General;
@@ -95,6 +96,35 @@ namespace Core.Services
 
             return localTorrentList;
         }
+
+
+
+        public IEnumerable<LocalTorrent> MapLocalTorrentDTOToLocalTorrent(IEnumerable<LocalTorrentDTO> localTorrentList)
+        {
+            var torrentList =
+             localTorrentList
+                 .Select(x => new LocalTorrent
+                 {
+                     id = x.id,
+                     backdrop_path = x.backdrop_path,
+                     original_language = x.original_language,
+                     original_title = x.original_title,
+                     overview = x.overview,
+                     poster_path = x.poster_path,
+                     release_date = x.release_date,
+                     title = x.title,
+                     vote_average = x.vote_average,
+                     vote_count = x.vote_count,
+                     popularity = x.popularity,
+                     folder_name = x.folder_name
+                 }).ToList();
+
+            return torrentList;
+        }
+
+
+
+        /* MAPPING ENTITIES IN PREPARATION FOR DISPLAY */
 
 
 
@@ -216,7 +246,6 @@ namespace Core.Services
             return torrentList;
         }
 
-        /* MAPPING ENTITIES IN PREPARATION FOR DISPLAY */
 
 
         public IEnumerable<FolderDTO> MapLocalTorrentToLocalTorrentDTO(IEnumerable<LocalTorrent> localTorrentList)
@@ -257,29 +286,24 @@ namespace Core.Services
         }
 
 
-        public IEnumerable<LocalTorrent> MapLocalTorrentDTOToLocalTorrent(IEnumerable<LocalTorrentDTO> localTorrentList)
+
+        //Map trailers to TrailerTorrentDTO()
+        public TrailerTorrent MapTrailerToTrailerTorrentDTO(IEnumerable<Video> trailerList)
         {
-            var torrentList =
-             localTorrentList
-                 .Select(x => new LocalTorrent
+            if (trailerList.Count() == 0) return null;
+
+            var trailer = trailerList.FirstOrDefault(x => x.Type == "Trailer");
+
+            var mappedTrailer =
+                  new TrailerTorrent
                  {
-                     id = x.id,
-                     backdrop_path = x.backdrop_path,
-                     original_language = x.original_language,
-                     original_title = x.original_title,
-                     overview = x.overview,
-                     poster_path = x.poster_path,
-                     release_date = x.release_date,
-                     title = x.title,
-                     vote_average = x.vote_average,
-                     vote_count = x.vote_count,
-                     popularity = x.popularity,
-                     folder_name = x.folder_name
-                 }).ToList();
+                     Key = trailer.Key,
+                     Name = trailer.Name,
+                     Site = trailer.Site
+                 };
 
-            return torrentList;
+            return mappedTrailer;
         }
-
 
 
 

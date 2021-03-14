@@ -39,6 +39,16 @@ namespace Infrastructure.Data
 
 
 
+        public async Task<WatchProviderRoot> RequestWatchProvidersAsync(int id, string media)
+        {
+            var streamTask = httpClient.GetStreamAsync("https://api.themoviedb.org/3/" + media.ToLower() + "/" + id + "/watch/providers?api_key=" + Constants.OmdbKey);
+            var watchProviders = await JsonSerializer.DeserializeAsync<WatchProviderRoot>(await streamTask);
+
+            return watchProviders;
+        }
+
+
+
         public SearchContainerWithId<ReviewBase> RequestMovieReviews(int id)
         {
             return client.GetMovieReviewsAsync(id).Result;
@@ -49,6 +59,20 @@ namespace Infrastructure.Data
         public SearchContainerWithId<ReviewBase> RequestTvReviews(int id)
         {
             return client.GetTvShowReviewsAsync(id).Result;
+        }
+
+
+
+        public async Task<ResultContainer<Video>> RequestMovieTrailerAsync(int id)
+        {
+            return await client.GetMovieVideosAsync(id);
+        }
+
+
+
+        public async Task<ResultContainer<Video>> RequestTvTrailerAsync(int id)
+        {
+            return await client.GetTvShowVideosAsync(id);
         }
 
 
@@ -114,18 +138,5 @@ namespace Infrastructure.Data
             return client.DiscoverTvShowsAsync()
                 .WhereFirstAirDateIsAfter(DateTime.Today).Query().Result;
         }
-
-
-
-        //TMDBLib does not currently have an async method for requesting watch providers. Use http client instead
-        public async Task<WatchProviderRoot> RequestWatchProvidersAsync(int id, string media)
-        {
-            var streamTask = httpClient.GetStreamAsync("https://api.themoviedb.org/3/" + media.ToLower() + "/" + id + "/watch/providers?api_key=" + Constants.OmdbKey);
-            var watchProviders = await JsonSerializer.DeserializeAsync<WatchProviderRoot>(await streamTask);
-
-            return watchProviders;
-        }
-
-
     }
 }

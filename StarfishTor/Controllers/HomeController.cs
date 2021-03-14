@@ -100,18 +100,24 @@ namespace StarfishTor.Controllers
         [HttpGet]
         public async Task<IActionResult> Selected(int id, string title, string media)
         {
-            var suggestion = _omdbApiService.RequestSelected(title, media);
+            var selectedTorrent = _omdbApiService.RequestSelected(title, media);
             var watchProviders = await _omdbApiService.RequestWatchProvidersAsync(id, media);
+            var trailer = await _omdbApiService.RequestTrailerAsync(id, media);
 
             if (watchProviders.Results.CA != null)
             {
-                suggestion.Watch_providers_buy = watchProviders.Results.CA.Buy;
-                suggestion.Watch_providers_rent = watchProviders.Results.CA.Rent;
-                suggestion.Watch_providers_flatrate = watchProviders.Results.CA.Flatrate;
+                selectedTorrent.Watch_providers_buy = watchProviders.Results.CA.Buy;
+                selectedTorrent.Watch_providers_rent = watchProviders.Results.CA.Rent;
+                selectedTorrent.Watch_providers_flatrate = watchProviders.Results.CA.Flatrate;
+            }
+
+            if (trailer != null)
+            {
+                selectedTorrent.Trailer = trailer;
             }
 
 
-            JsonResult torrentSelected = new JsonResult(JsonConvert.SerializeObject(suggestion));
+            JsonResult torrentSelected = new JsonResult(JsonConvert.SerializeObject(selectedTorrent));
 
             return torrentSelected;
         }

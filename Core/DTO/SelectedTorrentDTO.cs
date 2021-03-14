@@ -38,5 +38,7 @@ namespace Core.DTO
 
         public IEnumerable<Flatrate> Watch_providers_flatrate { get; set; }
 
+        public TrailerTorrent Trailer {get; set;}
+
     }
 }

@@ -33,6 +33,10 @@ namespace Core.Interfaces
 
         SearchContainer<SearchTv> RequestTvSuggestionsUpcoming();
 
+        Task<ResultContainer<Video>> RequestMovieTrailerAsync(int id);
+
+        Task<ResultContainer<Video>> RequestTvTrailerAsync(int id);
+
         Task<WatchProviderRoot> RequestWatchProvidersAsync(int id, string media);
 
     }

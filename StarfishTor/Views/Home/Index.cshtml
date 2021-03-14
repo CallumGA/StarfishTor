@@ -162,9 +162,11 @@
                     </a>
                 </div>
                 <div class="modal-body">
-                    <img class="poster img-fluid">
-                    <ul class="watchProvider list-group list-group-horizontal">
 
+                    <iframe class="trailer" width="470" height="345" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                    </iframe>
+
+                    <ul class="watchProvider list-group list-group-horizontal">
                     </ul>
                     <p class="overview" style="margin-top:20px"></p>
                     <div class="d-flex flex-wrap">
@@ -347,9 +349,14 @@
 
                     var obj = JSON.parse(response);
 
+                    var trailer = "//www.youtube.com/embed/" + obj.Trailer.Key + "?autoplay=1&mute=1?modestbranding=1&autohide=1&showinfo=0&controls=0"; 
+
+
                     $('.modal-header .modal-title').text(obj.Title);
                     $(".modal-header .reviews").text(obj.Vote_average);
-                    $(".modal-body .poster").attr("src", obj.Backdrop_path);
+                    @*$(".modal-body .poster").attr("src", obj.Backdrop_path);*@
+
+                    $(".modal-body .trailer").attr("src", trailer);
 
                     //Watch provider rent parsing
                     $(".modal-body .watchProvider").empty();
@@ -388,7 +395,7 @@
 
                     }
 
-
+                    //Rest of selected parsing
                     $(".modal-body .overview").text(obj.Overview);
 
                     $(".modal-body .media").text("Type: " + obj.Media_type);

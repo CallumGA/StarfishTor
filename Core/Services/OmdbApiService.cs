@@ -119,6 +119,24 @@ namespace Core.Services
 
 
 
+        public async Task<TrailerTorrent> RequestTrailerAsync(int id, string media)
+        {
+            if (media == "Movie")
+            {
+                var movieTrailers = await _omdbApiRepository.RequestMovieTrailerAsync(id);
+
+                return _mapper.MapTrailerToTrailerTorrentDTO(movieTrailers.Results);
+            }
+            else
+            {
+                var tvTrailers = await _omdbApiRepository.RequestTvTrailerAsync(id);
+
+                return _mapper.MapTrailerToTrailerTorrentDTO(tvTrailers.Results);
+            }
+        }
+
+
+
 
         public IEnumerable<SuggestionTorrentDTO> RequestMovieSuggestions()
         {

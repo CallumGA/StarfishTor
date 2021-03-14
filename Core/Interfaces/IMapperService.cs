@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.DTO;
+using Core.DTO.Aggregates;
 using Core.Entities;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Reviews;
@@ -27,5 +28,7 @@ namespace Core.Interfaces
         SelectedTorrentDTO MapSingleSearchTvToSelectedTorrentDTO(SearchTv suggestionTorrent);
 
         ReviewTorrentDTO MapReviewToSuggestionTorrentDTO(SearchContainerWithId<ReviewBase> reviewList);
+
+        TrailerTorrent MapTrailerToTrailerTorrentDTO(IEnumerable<Video> trailerList);
     }
 }
