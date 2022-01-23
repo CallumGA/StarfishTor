@@ -7,3 +7,5 @@ Light-weight plex like application. This is meant to quickly visualize and organ
 - Organize and visualize large local torrent libraries with full details given for all included in library: plots, dates, reviews/imdb score, posters, trailers,  watch providers and more.
 
 Using clean architecture style. 
+
+Testing pushing code from terminal
